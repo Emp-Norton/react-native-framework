@@ -7,8 +7,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import { WebBrowser } from 'expo';
+} from 'react-native'; // Need to explore the structure of each of these, et cetera. 
+import { WebBrowser } from 'expo'; // Hmm. Expo has ben helpful getting off the ground, but need to learn the raw nuts and bolts soon
 
 import { MonoText } from '../components/StyledText';
 
@@ -16,6 +16,23 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  /*
+   Look at how state is best handled, how redux fits in, and
+   if the react practice of passing bound functions between
+   components to update central state is acceptable here as well 
+  */
+  state = { 
+    balance: 1000
+  }
+
+  /* 
+  JSX Notes:
+    - Styling? Is this in lieu of CSS?
+    - 82: Is this like adding a function on a stateful component in normal react?
+      - 105: Which makes this line basically the same but one level down the scope?
+      - Is the underscore prefix a convention to indicate private variable? 
+  */
 
   render() {
     return (
@@ -35,13 +52,13 @@ export default class HomeScreen extends React.Component {
           <View style={styles.getStartedContainer}>
             {this._maybeRenderDevelopmentModeWarning()}
 
-            <Text style={styles.getStartedText}>Get started by being funky!</Text>
+            <Text style={styles.getStartedText}>Your current remaining balance is:</Text>
 
             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-             <Text> Found at: </Text><MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
+             <MonoText style={styles.codeHighlightText}>${ this.state.balance }</MonoText>
             </View>
 
-            <Text style={styles.getStartedText}>
+            <Text style={styles.getStartedText}> 
               Change this text and your app will automatically reload.
             </Text>
           </View>
