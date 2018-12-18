@@ -1,12 +1,18 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
+import { AppLoading, Asset, Font, Icon } from 'expo'; // need to look more into each of these imports 
 import AppNavigator from './navigation/AppNavigator';
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
+
+  /*
+  Line 34: Is this just a generic async loading mechanism? Promisify the asset loading and possible errors? 
+    What about animations / actions while loading? Do those go here, or in a separate component that's presented if
+    an 'isLoaded' property is truthy in state?
+  */
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
@@ -54,6 +60,8 @@ export default class App extends React.Component {
   };
 }
 
+
+// how is this approach to styling similar to or different than styled components? CSS moduling?
 const styles = StyleSheet.create({
   container: {
     flex: 1,
