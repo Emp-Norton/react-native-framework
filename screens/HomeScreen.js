@@ -7,25 +7,34 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Button,
 } from 'react-native'; // Need to explore the structure of each of these, et cetera. 
 import { WebBrowser } from 'expo'; // Hmm. Expo has ben helpful getting off the ground, but need to learn the raw nuts and bolts soon
 
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      balance: 1000
+    }
+    this.decreaseBalance = this.decreaseBalance.bind(this);
+  }
   static navigationOptions = {
     header: null,
   };
+
+  decreaseBalance(){
+    const newBalance = this.state.balance - 100;
+    this.setState({balance: newBalance})
+  }
 
   /*
    Look at how state is best handled, how redux fits in, and
    if the react practice of passing bound functions between
    components to update central state is acceptable here as well 
   */
-  state = { 
-    balance: 1000
-  }
-
   /* 
   JSX Notes:
     - Styling? Is this in lieu of CSS?
@@ -57,10 +66,7 @@ export default class HomeScreen extends React.Component {
             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
              <MonoText style={styles.codeHighlightText}>${ this.state.balance }</MonoText>
             </View>
-
-            <Text style={styles.getStartedText}> 
-              Change this text and your app will automatically reload.
-            </Text>
+            <Button color="#1dcaff" title="-$100" onPress={this.decreaseBalance}></Button>
           </View>
 
           <View style={styles.helpContainer}>
@@ -69,6 +75,9 @@ export default class HomeScreen extends React.Component {
             </TouchableOpacity>
           </View>
         </ScrollView>
+     
+          
+        
 
         <View style={styles.tabBarInfoContainer}>
           <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
@@ -79,6 +88,11 @@ export default class HomeScreen extends React.Component {
         </View>
       </View>
     );
+  }
+
+  _decreaseBudget() {
+    const newBalance = this.state.balance - 100;
+    this.setState({balance: newBalance})
   }
 
   _maybeRenderDevelopmentModeWarning() {
@@ -103,16 +117,6 @@ export default class HomeScreen extends React.Component {
       );
     }
   }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }
 
 const styles = StyleSheet.create({
