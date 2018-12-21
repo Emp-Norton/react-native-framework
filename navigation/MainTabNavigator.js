@@ -6,6 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ExpenseScreen from '../screens/ExpenseScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -53,8 +54,24 @@ SettingsStack.navigationOptions = {
   ),
 };
 
+const ExpenseStack = createStackNavigator({
+  Expenses: ExpenseScreen,
+});
+
+ExpenseStack.navigationOptions = {
+  tabBarLabel: 'Expenses',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+    />
+  ),
+};
+
+
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
+  ExpenseStack,
 });
